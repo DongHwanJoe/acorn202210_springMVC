@@ -17,6 +17,24 @@ public class MemberController {
 	@Autowired
 	private MemberDao dao;
 	
+	@RequestMapping("/member/update")
+	public String update(MemberDto dto) {
+		dao.update(dto);
+		return "member/update";
+	}
+	
+	@RequestMapping("/member/updateform")
+	public ModelAndView updateform(int num, ModelAndView mView) {//ModelAndView 객체도 받을 수 있다.
+		//수정할 회원의 정보를 DB에서 불러온다.
+		MemberDto dto = dao.getData(num);
+		//ModelAndView 객체에 담고
+		mView.addObject("dto", dto);
+		//view page의 정보도 담아서
+		mView.setViewName("member/updateform");
+		//리턴		
+		return mView;
+	}
+	
 	@RequestMapping("/member/delete")
 	public String delete(int num) {// get 방식 전송 파라미터도 추출 가능
 		dao.delete(num);

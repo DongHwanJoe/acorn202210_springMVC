@@ -26,8 +26,11 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public void update(MemberDto dto) {
-		// TODO Auto-generated method stub
-		
+		/*
+		 * mapper's namespace => member
+		 * sql's id => update
+		 */
+		session.update("member.update", dto);
 	}
 
 	@Override
@@ -42,8 +45,19 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public MemberDto getData(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		/*
+		 * mapper's namespace => member
+		 * sql's id => getData
+		 * parameterType => int
+		 * 
+		 * - selectOne() 메소드를 호출하면 mapper xml의 resultType이 바로 메소드의 return type이 된다.
+		 * 
+		 * resultType => MemberDto
+		 * return type => MemberDto
+		 */
+		MemberDto dto = session.selectOne("member.getData", num);
+		
+		return dto;
 	}
 
 	@Override
@@ -51,6 +65,10 @@ public class MemberDaoImpl implements MemberDao{
 		/*
 		 * mapper's namespace => member
 		 * sql's id => getList
+		 * 
+		 * - selectList() 메소드를 호춯하면 List가 return type이고 mapper xml의 resultType이
+		 *   List의 generic type이 된다.
+		 *   
 		 * resultType => MemberDto
 		 * return type => List
 		 */
