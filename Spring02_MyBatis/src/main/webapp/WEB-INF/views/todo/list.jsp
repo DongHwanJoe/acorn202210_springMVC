@@ -5,22 +5,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/views/member/list.jsp</title>
+<title>/views/todo/list.jsp</title>
 </head>
 <body>
 	<div class="container">
 		<a href="${pageContext.request.contextPath}">인덱스로</a>
 		<div>
-			<a href="${pageContext.request.contextPath}/member/insertform">회원추가</a>
+			<a href="${pageContext.request.contextPath}/todo/insertform">할일 추가</a>
 		</div>
 		
-		<h1>회원 목록</h1>
+		<h1>할일 목록</h1>
 		<table>
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>이름</th>
-					<th>주소</th>
+					<th>할일</th>
+					<th>등록일</th>
 					<th>수정</th>
 					<th>삭제</th>
 				</tr>
@@ -29,8 +29,8 @@
 				<c:forEach var="tmp" items="${list }">
 					<tr>
 						<td>${tmp.num }</td>
-						<td>${tmp.name }</td>
-						<td>${tmp.addr }</td>
+						<td>${tmp.content }</td>
+						<td>${tmp.regdate }</td>
 						<td><a href="updateform?num=${tmp.num }">수정</a></td>
 						<td><a href="delete?num=${tmp.num }">삭제</a></td>
 					</tr>
