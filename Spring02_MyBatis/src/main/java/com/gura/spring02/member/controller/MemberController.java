@@ -17,6 +17,24 @@ public class MemberController {
 	@Autowired
 	private MemberDao dao;
 	
+	@RequestMapping("/member/delete")
+	public String delete(int num) {// get 방식 전송 파라미터도 추출 가능
+		dao.delete(num);
+		return "redirect:/member/list";
+	}
+	
+	@RequestMapping("/member/insert")
+	public String insert(MemberDto dto) {//폼 전송되는 name, addr이 자동으로 추출되어서 MemberDto에 담겨서 전달된다.
+		dao.insert(dto);
+		return "member/insert";
+	}
+	
+	@RequestMapping("/member/insertform")
+	public String insertform() {
+		// /WEB-INF/views/member/insertform.jsp로 forward 이동
+		return "member/insertform";
+	}
+	
 	@RequestMapping("/member/list")
 	public ModelAndView getList(ModelAndView mView) {
 		//주입받은 MemberDao 객체를 이용해서 회원목록 생성

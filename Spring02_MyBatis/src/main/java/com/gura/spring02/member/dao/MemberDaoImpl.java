@@ -17,8 +17,11 @@ public class MemberDaoImpl implements MemberDao{
 	
 	@Override
 	public void insert(MemberDto dto) {
-		// TODO Auto-generated method stub
-		
+		/*
+		 * mapper's namespace => member
+		 * sql's id => insert
+		 */
+		session.insert("member.insert", dto);
 	}
 
 	@Override
@@ -29,8 +32,12 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public void delete(int num) {
-		// TODO Auto-generated method stub
-		
+		/*
+		 *  member's namespace => member
+		 *  sql's id => delete
+		 *  parameterType => int
+		 */
+		session.delete("member.delete", num);
 	}
 
 	@Override
