@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +28,15 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public void addUser(UsersDto dto) {
+		//가입 시 입력한 비밀번호를 읽어오기
+		String pwd = dto.getPwd();
+		//암호화 후
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedPwd = encoder.encode(pwd);
+		//dto에 재입력
+		dto.setPwd(encodedPwd);
+		
+		//암호화된 비밀번호가 들어있는 dto를 dao에 전달해서 새로운 회원정보를 추가한다.
 		dao.insert(dto);
 	}
 
@@ -36,9 +47,10 @@ public class UsersServiceImpl implements UsersService{
 		//아이디를 이용해서 회원 정보를 얻어온다.
 		UsersDto resultDto = dao.getData(dto.getId());
 		if(resultDto != null) {
-			isValid = dto.getPwd().equals(resultDto.getPwd()) ? true : false;
+			isValid = BCrypt.checkpw(dto.getPwd(), resultDto.getPwd());
 		}
 		if(isValid) {
+			//Bycrpt 클래스의 static 메소드를 이용해서 입력한 비밀번호와 암호화된 비밀번호 일치 여부를 확인
 			session.setAttribute("id", resultDto.getId());
 		}
 	}
