@@ -45,8 +45,12 @@ public class UsersServiceImpl implements UsersService{
 
 	@Override
 	public void getInfo(HttpSession session, ModelAndView mView) {
-		// TODO Auto-generated method stub
-		
+		//로그인 된 아이디를 읽어오기
+		String id = (String)session.getAttribute("id");
+		//DB에서 회원정보 얻어오기
+		UsersDto dto = dao.getData(id);
+		//ModelAndView 객체에 담기
+		mView.addObject("dto", dto);
 	}
 
 	@Override

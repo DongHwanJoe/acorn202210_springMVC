@@ -62,8 +62,17 @@ public class UsersController {
 		return mView;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/users/logout")
-	public String logout() {
+	@RequestMapping("/users/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("id");
 		return "users/logout";
+	}
+	
+	@RequestMapping("/users/info")
+	public ModelAndView info(HttpSession session, ModelAndView mView) {
+		service.getInfo(session, mView);
+		
+		mView.setViewName("users/info");
+		return mView;
 	}
 }
