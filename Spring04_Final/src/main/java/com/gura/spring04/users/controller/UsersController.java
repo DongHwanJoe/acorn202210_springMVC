@@ -75,4 +75,26 @@ public class UsersController {
 		mView.setViewName("users/info");
 		return mView;
 	}
+	
+	@RequestMapping("/users/pwd_updateform")
+	public String pwdUpdateForm() {
+		return "users/pwd_updateform";
+	}
+	
+	@RequestMapping("/users/pwd_update")
+	public ModelAndView pwdUpdate(UsersDto dto, ModelAndView mView, HttpSession session) {
+		//서비스에 필요한 객체의 참조값을 전달해서 비밀번호 수정 로직을 처리한다.
+		service.updateUserPwd(session, dto, mView);
+		//view page로 forward 이동 후 결과 응답
+		mView.setViewName("users/pwd_update");
+		return mView;
+	}
+	
+	@RequestMapping("users/delete")
+	public ModelAndView delete(HttpSession session, ModelAndView mView) {
+		service.deleteUser(session, mView);
+		
+		mView.setViewName("users/delete");
+		return mView;
+	}
 }
