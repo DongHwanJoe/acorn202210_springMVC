@@ -8,7 +8,7 @@
 	</insert>
 	
 	<select id="getData" parameterType="string" resultType="com.gura.spring04.users.dto.UsersDto">
-		SELECT id, pwd, email, profile, TO_CHAR(regdate, 'yyyy-mm-dd') AS regdate
+		SELECT id, pwd, email, profile, regdate
 		FROM users
 		WHERE id = #{id}
 	</select>
@@ -19,11 +19,21 @@
 		WHERE id = #{id}
 	</update>
 	
+	<!-- 
+		int, long, float, double, String type에 대응하는
+		jdbcType 종류
+		INTEGER, BIGINT, FLOAT, DOUBLE, VARCHAR
+	 -->
 	<update id="update" parameterType="com.gura.spring04.users.dto.UsersDto">
-		UPDATE users SET
-		email = #{email}
-		profile = #{profile}
-		WHERE id = #{id}
+		UPDATE users 
+		SET email = #{email }, profile = #{profile, jdbcType = VARCHAR }
+		WHERE id = #{id }
+	</update>
+	
+	<update id="update2" parameterType="com.gura.spring04.users.dto.UsersDto">
+		UPDATE users 
+		SET	email = #{email }<if test="profile != null">, profile = #{profile }</if>
+		WHERE id = #{id }
 	</update>
 	
 	<delete id="delete" parameterType="string">

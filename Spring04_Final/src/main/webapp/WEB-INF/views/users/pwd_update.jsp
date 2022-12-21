@@ -12,7 +12,7 @@
 		<c:choose>
 			<c:when test="${isSuccess }">
 				<p>
-					<strong>${id }</strong> 님 비밀번호를 수정하고 로그 아웃되었습니다. 
+					<strong>${id }</strong> 님 비밀번호를 수정하고 로그아웃 되었습니다. 
 					<a href="${pageContext.request.contextPath}/users/loginform">다시 로그인 하러 가기</a>
 				</p>
 			</c:when>

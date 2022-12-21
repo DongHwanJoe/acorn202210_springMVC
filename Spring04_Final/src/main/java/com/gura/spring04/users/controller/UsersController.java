@@ -2,6 +2,7 @@ package com.gura.spring04.users.controller;
 
 import java.net.URLEncoder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,11 +91,27 @@ public class UsersController {
 		return mView;
 	}
 	
-	@RequestMapping("users/delete")
+	@RequestMapping("/users/delete")
 	public ModelAndView delete(HttpSession session, ModelAndView mView) {
 		service.deleteUser(session, mView);
 		
 		mView.setViewName("users/delete");
+		return mView;
+	}
+	
+	@RequestMapping("/users/updateform")
+	public ModelAndView updateform(HttpSession session, ModelAndView mView) {
+		service.getInfo(session, mView);
+		mView.setViewName("users/updateform");
+		return mView;
+	}
+	
+	@RequestMapping(value = "/users/update", method = RequestMethod.POST)
+	public ModelAndView update(UsersDto dto, HttpSession session, ModelAndView mView,
+			HttpServletRequest request) {
+		//서비스를 이용해서 개인정보를 수정
+		service.updateUser(dto, session);
+		mView.setViewName("redirect:/users/info");
 		return mView;
 	}
 }
