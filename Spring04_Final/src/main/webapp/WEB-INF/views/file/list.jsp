@@ -11,9 +11,8 @@
 </head>
 <body>
 	<div class="container">
-		<a
-			href="${pageContext.request.contextPath }/file/upload_form">업로드
-			하기</a>
+		<a href="${pageContext.request.contextPath}/">인덱스로</a><br />
+		<a href="${pageContext.request.contextPath }/file/upload_form">업로드 하기</a>
 		<h3>자료실 목록 보기</h3>
 		<table class="table table-striped">
 			<thead class="table-dark">
@@ -51,15 +50,16 @@
 			<ul class="pagination">
 				<%--
 				  startPageNum 이 1 이 아닌 경우에만 Prev 링크를 제공한다. 
+				  &condition=${condition}&keyword=${encodedK}
 				--%>
 				<c:if test="${startPageNum ne 1 }">
 					<li class="page-item">
-						<a class="page-link" href="list?pageNum=${startPageNum - 1 }">Prev</a>
+						<a class="page-link" href="list?pageNum=${startPageNum - 1 }&condition=${condition}&keyword=${encodedK}">Prev</a>
 					</li>
 				</c:if>
 				<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 					<li class="page-item ${pageNum eq i ? 'active' : '' }">
-						<a class="page-link" href="list?pageNum=${i }">${i }</a>
+						<a class="page-link" href="list?pageNum=${i }&condition=${condition}&keyword=${encodedK}">${i }</a>
 					</li>
 				</c:forEach>
 
@@ -68,17 +68,35 @@
 				--%>
 				<c:if test="${endPageNum lt totalPageCount }">
 					<li class="page-item">
-						<a class="page-link" href="list?pageNum=${endPageNum + 1 }">Next</a>
+						<a class="page-link" href="list?pageNum=${endPageNum + 1 }&condition=${condition}&keyword=${encodedK}">Next</a>
 					</li>
 				</c:if>
 			</ul>
 		</nav>
+		
+		<!-- 검색 폼 -->
+		<form action="list" method="get">
+			<label for="condition">검색조건</label>
+			<select name="condition" id="condition">
+				<option value="title_filename" ${condition eq 'title_filename' ? 'selected' : '' }>제목 + 파일명</option>
+				<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+				<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+			</select>
+			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }" />
+			<button type="submit">검색</button>
+		</form>
+		<c:if test="${not empty condition }">
+			<p>
+				<strong>${totalRow }</strong>개의 자료가 검색 되었습니다.
+				<a href="list">리셋</a>
+			</p>
+		</c:if>
 	</div>
 	<script>
       function deleteConfirm(num){
          let isDelete=confirm("삭제 하시겠습니까?");
          if(isDelete){
-            location.href="delete.jsp?num="+num;
+            location.href="delete?num="+num;
          }
       }
    </script>
