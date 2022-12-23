@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring04.cafe.dto.CafeDto;
 import com.gura.spring04.cafe.service.CafeService;
@@ -36,5 +37,30 @@ public class CafeController {
 		dto.setWriter(writer);
 		service.saveContent(dto);
 		return "cafe/insert";
+	}
+	
+	@RequestMapping("/cafe/detail")
+	public String detail(HttpServletRequest request) {
+		service.getDetail(request);
+		return "cafe/detail";
+	}
+	
+	@RequestMapping("/cafe/updateform")
+	public ModelAndView updateform(HttpServletRequest request, ModelAndView mView) {
+		service.getData(request);
+		mView.setViewName("cafe/updateform");
+		return mView;
+	}
+	
+	@RequestMapping("/cafe/update")
+	public String update(CafeDto dto) {
+		service.updateContent(dto);
+		return "cafe/update";
+	}
+	
+	@RequestMapping("/cafe/delete")
+	public String delete(int num, HttpServletRequest request) {
+		service.deleteContent(num, request);
+		return "redirect:/cafe/list";
 	}
 }

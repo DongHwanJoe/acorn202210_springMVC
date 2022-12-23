@@ -104,8 +104,46 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public void getDetail(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+		//보여줄 글 번호를 읽어오기
+		int num = Integer.parseInt(request.getParameter("num"));
+		//조회수 올리기
+		cafeDao.addViewCount(num);
 		
+		String keyword = request.getParameter("keyword");
+		String condition = request.getParameter("condition");
+		//만일 키워드가 넘어오지 않는다면 
+		if(keyword == null){
+			//키워드와 검색 조건에 빈 문자열을 넣어준다. 
+			//클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서  
+			keyword = "";
+			condition = ""; 
+		}
+		
+		CafeDto dto = new CafeDto();
+		dto.setNum(num);
+		//만일 검색 키워드가 넘어온다면 
+		if(!keyword.equals("")){
+			//검색 조건이 무엇이냐에 따라 분기 하기
+			if(condition.equals("title_content")){//제목 + 파일명 검색인 경우
+				dto.setTitle(keyword);
+				dto.setContent(keyword);
+			}else if(condition.equals("title")){ //제목 검색인 경우
+				dto.setTitle(keyword);
+			}else if(condition.equals("writer")){ //작성자 검색인 경우
+				dto.setWriter(keyword);
+			} // 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
+		}
+		
+		//글 정보 얻기
+		CafeDto resultDto = cafeDao.getData(dto);
+		
+		String encodedK = URLEncoder.encode(keyword);
+		
+		//request에 담기
+		request.setAttribute("dto", resultDto);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("encodedK", encodedK);
+		request.setAttribute("condition", condition);
 	}
 
 	@Override
@@ -115,20 +153,28 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public void updateContent(CafeDto dto) {
-		// TODO Auto-generated method stub
-		
+		cafeDao.update(dto);
 	}
 
 	@Override
 	public void deleteContent(int num, HttpServletRequest request) {
-		// TODO Auto-generated method stub
+		//세션에서 로그인된 아이디
 		
+		//글 작성자와 로그인된 아이디가 다르면
+		
+		//삭제불가능
+		
+		cafeDao.delete(num);
 	}
 
 	@Override
 	public void getData(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		
+		//보여줄 글 번호를 읽어오기
+		int num = Integer.parseInt(request.getParameter("num"));
+		//글 정보 얻기
+		CafeDto dto = cafeDao.getData(num);
+		//request에 담기
+		request.setAttribute("dto", dto);
 	}
 
 }
