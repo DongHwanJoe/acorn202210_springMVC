@@ -25,9 +25,7 @@
 				FROM board_cafe
 				<include refid="searchCondition"/>
 				ORDER BY num DESC) result1)
-		<![CDATA[ 
-		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum} 
-		]]>
+		where rnum between #{startRowNum} and #{endRowNum}
 	</select>
 	
 	<select id="getCount" parameterType="cafeDto" resultType="int">

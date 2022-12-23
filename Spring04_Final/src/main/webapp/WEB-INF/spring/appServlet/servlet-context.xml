@@ -111,6 +111,12 @@
 			<exclude-mapping path="/file/download"/>
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/cafe/*"/>
+			<exclude-mapping path="/cafe/list"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 	<!-- 
