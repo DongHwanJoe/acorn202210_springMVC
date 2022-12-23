@@ -169,11 +169,8 @@ public class CafeServiceImpl implements CafeService{
 
 	@Override
 	public void getData(HttpServletRequest request) {
-		//보여줄 글 번호를 읽어오기
 		int num = Integer.parseInt(request.getParameter("num"));
-		//글 정보 얻기
 		CafeDto dto = cafeDao.getData(num);
-		//request에 담기
 		request.setAttribute("dto", dto);
 	}
 

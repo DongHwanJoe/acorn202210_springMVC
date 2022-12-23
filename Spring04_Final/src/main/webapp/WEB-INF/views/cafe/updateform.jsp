@@ -19,6 +19,10 @@
 		<form action="update" method="post">
 			<input type="hidden" name="num" value="${dto.num }" />
 			<div>
+			   <label for="writer">작성자</label>
+			   <input type="text" id="writer" value="${dto.writer }" disabled/>
+			</div>
+			<div>
 				<label for="title">제목</label>
 				<input type="text" name="title" id="title" value="${dto.title }" />
 			</div>

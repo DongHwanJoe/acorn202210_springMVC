@@ -46,10 +46,9 @@ public class CafeController {
 	}
 	
 	@RequestMapping("/cafe/updateform")
-	public ModelAndView updateform(HttpServletRequest request, ModelAndView mView) {
+	public String updateform(HttpServletRequest request) {
 		service.getData(request);
-		mView.setViewName("cafe/updateform");
-		return mView;
+		return "cafe/updateform";
 	}
 	
 	@RequestMapping("/cafe/update")
