@@ -6,7 +6,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Component
 public class MessengerAspect {
 
 	//return type은 void이고 send로 시작하는 모든 메소드가 point cut이다.
