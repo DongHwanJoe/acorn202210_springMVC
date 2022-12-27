@@ -20,6 +20,15 @@ public class ExceptionController {
 		return mView;
 	}
 	
+	@ExceptionHandler(DeliveryException.class)
+	public ModelAndView delivery(DeliveryException de) {
+		ModelAndView mView = new ModelAndView();
+		mView.addObject("exception", de);
+		mView.addObject("info", "내년부터는 제주도도 배송 가능하도록 노력하겠습니다.");
+		mView.setViewName("error/delivery");
+		return mView;
+	}
+	
 	//DB 관련 작업을 하다가 발생하는 모든 예외를 처리하는 컨트롤러
 	@ExceptionHandler(DataAccessException.class)
 	public ModelAndView dataAccess(DataAccessException dae) {

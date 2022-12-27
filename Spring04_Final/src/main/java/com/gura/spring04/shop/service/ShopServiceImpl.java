@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring04.exception.DeliveryException;
 import com.gura.spring04.shop.dao.OrderDao;
 import com.gura.spring04.shop.dao.ShopDao;
 import com.gura.spring04.shop.dto.OrderDto;
@@ -66,7 +67,13 @@ public class ShopServiceImpl implements ShopService{
 		dto2.setId(id); // 누가
 		dto2.setCode(num); // 어떤 상품을
 		//클라이언트가 입력한 배송 주소라고 가정
-		String addr = "서울시 강남구 삼원타워";
+		String addr = "제주도 삼원타워";
+		
+		//테스트
+		if(addr.contains("제주도")) {
+			throw new DeliveryException("제주도는 배송 불가 지역입니다.");
+		}
+		
 		dto2.setAddr(addr);//어디로 배송할지
 		orderDao.addOrder(dto2);
 	}
