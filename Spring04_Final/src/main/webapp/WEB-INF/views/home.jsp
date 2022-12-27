@@ -31,6 +31,7 @@
 			<li><a href="get_users">회원목록</a></li>
 			<li><a href="file/list">자료실 목록보기</a></li>
 			<li><a href="cafe/list">글 목록보기</a></li>
+			<li><a href="shop/list">과일 사러가기</a></li>
 		</ul>
 		<h3>공지사항</h3>
 		<ul>
