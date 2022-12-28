@@ -52,3 +52,15 @@ VALUES(2, '바나나', 2000, 5);
 
 INSERT INTO shop (num,name,price,remainCount)
 VALUES(3, '귤', 3000, 5);
+
+-- 이미지 갤러리를 만들기 위한 테이블
+CREATE TABLE board_gallery(
+	num NUMBER PRIMARY KEY,
+	writer VARCHAR2(100),
+	caption VARCHAR2(100), -- 이미지에 대한 설명
+	imagePath VARCHAR2(100), -- 업로드된 이미지의 경로 ex(/resources/upload/xxx.jpg)
+	regdate DATE -- 이미지 업로드 날짜
+);
+
+CREATE SEQUENCE board_gallery_seq;
+
