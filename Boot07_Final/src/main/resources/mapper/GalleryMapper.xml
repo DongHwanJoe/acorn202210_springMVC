@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gallery">
+	<sql id="searchCondition">
+		<choose>
+			<when test="caption != null">
+				WHERE caption LIKE '%'||#{caption}||'%'
+			</when>
+			<when test="writer != null">
+				WHERE writer LIKE '%'||#{writer}||'%'
+			</when>
+		</choose>
+	</sql>
+	
+	<select id="getList" parameterType="com.gura.boot07.gallery.dto.GalleryDto" resultType="com.gura.boot07.gallery.dto.GalleryDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM 
+				(SELECT num, writer, caption, imagePath, regdate
+				FROM board_gallery
+				<include refid="searchCondition"/>
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getCount" parameterType="com.gura.boot07.gallery.dto.GalleryDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM board_gallery
+		<include refid="searchCondition"/>
+	</select>
+	
+	<insert id="insert" parameterType="com.gura.boot07.gallery.dto.GalleryDto">
+		INSERT INTO board_gallery
+		(num, writer, caption, imagePath, regdate)
+		VALUES(board_gallery_seq.NEXTVAL, #{writer }, #{caption }, #{imagePath }, SYSDATE)
+	</insert>
+	
+	<select id="getData" parameterType="int" resultType="com.gura.boot07.gallery.dto.GalleryDto">
+		SELECT result1.*
+		FROM
+		    (SELECT num, writer, caption, imagePath, TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate,
+				       LAG(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum,
+			           LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum
+				FROM board_gallery
+		        ORDER BY num DESC) result1
+		WHERE num = #{num}
+	</select>
+	
+	<select id="getData2" parameterType="com.gura.boot07.gallery.dto.GalleryDto" resultType="com.gura.boot07.gallery.dto.GalleryDto">
+		SELECT result1.*
+		FROM
+		    (SELECT num, writer, caption, imagePath, TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate,
+				       LAG(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum,
+			           LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum
+				FROM board_gallery
+				<include refid="searchCondition"/>
+		        ORDER BY num DESC) result1
+		WHERE num = #{num}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_gallery
+		WHERE num = #{num}
+	</delete>
+	
+	<update id="update" parameterType="com.gura.boot07.gallery.dto.GalleryDto">
+		UPDATE board_gallery SET
+		caption = #{caption},
+		imagePath = '${imagePath}'
+		WHERE num = #{num}
+	</update>
+</mapper>
