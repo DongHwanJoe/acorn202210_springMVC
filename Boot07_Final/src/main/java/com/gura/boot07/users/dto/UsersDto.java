@@ -1,5 +1,8 @@
 package com.gura.boot07.users.dto;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("usersDto")
 public class UsersDto {
 	private String id;
 	private String pwd;
