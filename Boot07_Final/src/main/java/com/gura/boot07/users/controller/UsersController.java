@@ -1,5 +1,6 @@
 package com.gura.boot07.users.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -46,7 +47,7 @@ public class UsersController {
 	@ResponseBody
 	public byte[] profileImage(@PathVariable("imageName") String imageName) throws IOException {
 		
-		String absolutePath = "C:\\data\\" + imageName;
+		String absolutePath = fileLocation + File.separator + imageName;
 		//파일에서 읽어들일 InputStream
 		InputStream is = new FileInputStream(absolutePath);
 	
