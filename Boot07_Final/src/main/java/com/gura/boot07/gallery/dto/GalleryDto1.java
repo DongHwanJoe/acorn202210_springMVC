@@ -1,7 +1,12 @@
 package com.gura.boot07.gallery.dto;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
+// com.gura.boot07.gallery.dto.GalleryDto라는 type을 galleryDto type alias로 사용하기 위한 어노테이션
+// application.properties 파일에 해당 dto가 존재하는 패키지를 명시해야 한다.
+// mybatis.type-aliases-package = 패키지명1, 패키지명2, ...
+@Alias("galleryDto1")
 public class GalleryDto1 {
 	private int num;
 	private String writer;

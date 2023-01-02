@@ -1,5 +1,8 @@
 package com.gura.boot07.gallery.dto;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("galleryDto")
 public class GalleryDto {
 	private int num;
 	private String writer;
