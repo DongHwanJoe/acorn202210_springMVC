@@ -24,16 +24,11 @@
 
 		<h1>인덱스 페이지 입니다.</h1>
 		<ul>
-			<li><a href="get_msg">@ResponseBody 어노테이션 테스트</a></li>
-			<li><a href="get_person">한 명의 정보</a></li>
-			<li><a href="get_user">회원 한 명의 정보</a></li>
-			<li><a href="get_friends">친구목록</a></li>
-			<li><a href="get_users">회원목록</a></li>
 			<li><a href="file/list">자료실 목록보기</a></li>
 			<li><a href="cafe/list">글 목록보기</a></li>
-			<li><a href="shop/list">과일 사러가기</a></li>
 			<li><a href="gallery/list">갤러리 목록보기</a></li>
 			<li><a href="gallery1/list">갤러리1 목록보기</a></li>
+			<li><a href="shop/list">과일 사러가기</a></li>
 		</ul>
 		<h3>공지사항</h3>
 		<ul>
