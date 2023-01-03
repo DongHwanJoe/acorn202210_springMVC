@@ -36,19 +36,6 @@ public class UsersController {
 	@Value("${file.location}")
 	private String fileLocation;
 	
-	//프로필 이미지 요청에 대한 응답을 할 메소드를 따로 만들어야 한다.
-	//이미지 데이터가 응답되어야 한다.
-	//웹브라우저에게 이미지 데이터를 응답한다고 알려야 한다.
-	//응답할 미이지의 이름은 떄에 따라 다르다.
-	
-	/*
-	 *  이 컨트롤러 메소드에서 응답한 byte[] 배열을 클라이언트에게 응답하는 방법
-	 *  1. @ResponseBody
-	 *  2. byte[] 배열 리턴
-	 *  
-	 *  응답된 byte[] 배열에 있는 데이터를 이미지 데이터로 클라이언트 웹브라우저가 인식하게 하는 방법
-	 *  produces = MediaType.IMAGE_JPEG_VALUE 
-	 */
 	@GetMapping(
 			value = "/users/profile/{imageName}",
 			produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE}
