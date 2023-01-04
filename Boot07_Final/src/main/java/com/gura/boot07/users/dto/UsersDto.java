@@ -10,10 +10,11 @@ public class UsersDto {
 	private String profile;
 	private String regdate;
 	private String newPwd;
+	private String isSave;
 	
 	public UsersDto() {}
 
-	public UsersDto(String id, String pwd, String email, String profile, String regdate, String newPwd) {
+	public UsersDto(String id, String pwd, String email, String profile, String regdate, String newPwd, String isSave) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -21,6 +22,7 @@ public class UsersDto {
 		this.profile = profile;
 		this.regdate = regdate;
 		this.newPwd = newPwd;
+		this.isSave = isSave;
 	}
 
 	public String getId() {
@@ -69,5 +71,13 @@ public class UsersDto {
 
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
+	}
+
+	public String getIsSave() {
+		return isSave;
+	}
+
+	public void setIsSave(String isSave) {
+		this.isSave = isSave;
 	}
 }

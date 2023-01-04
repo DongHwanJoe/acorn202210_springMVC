@@ -33,7 +33,9 @@
 		<h3>공지사항</h3>
 		<ul>
 			<c:forEach var="tmp" items="${noticeList }">
-				<li>${tmp }</li>
+				<li>
+					<a href="https://map.naver.com/v5/search/${tmp }/place/">${tmp }</a>
+				</li>
 			</c:forEach>
 		</ul>
 	</div>
