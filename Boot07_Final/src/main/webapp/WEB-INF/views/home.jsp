@@ -29,6 +29,7 @@
 			<li><a href="gallery/list">갤러리 목록보기</a></li>
 			<li><a href="gallery1/list">갤러리1 목록보기</a></li>
 			<li><a href="shop/list">과일 사러가기</a></li>
+			<li><a href="music/list">음악 목록 보기(로그인 필요)</a></li>
 		</ul>
 		<h3>공지사항</h3>
 		<ul>

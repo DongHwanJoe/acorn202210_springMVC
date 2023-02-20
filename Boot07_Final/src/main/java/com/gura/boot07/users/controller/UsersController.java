@@ -2,7 +2,6 @@ package com.gura.boot07.users.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
@@ -90,6 +89,9 @@ public class UsersController {
 		mView.addObject("url", url);
 		mView.addObject("encodedUrl", encodedUrl);
 		
+		System.out.println("login:"+url);
+		System.out.println("login:"+encodedUrl);
+	
 		//view page로 forward 이동해서 응답
 		mView.setViewName("users/login");
 		return mView;

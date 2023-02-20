@@ -1,6 +1,8 @@
 package com.gura.boot07.exception;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -9,6 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @ControllerAdvice
 public class ExceptionController {
+	
+	@ExceptionHandler(ForbiddenException.class)
+	public ResponseEntity<String> forbidden(ForbiddenException fe) {
+		ResponseEntity<String> re = new ResponseEntity<>(HttpStatus.FORBIDDEN);
+		return re; 
+	}
+	
 	//spring framework가 동작하는 중에 NotDeleteException type의 예외가 발생하면 호출되는 메소드
 	@ExceptionHandler(NotDeleteException.class)
 	public ModelAndView notDelete(NotDeleteException nde) {
